@@ -14,12 +14,16 @@ public class RecoursionMethods {
         return n == 0 ? 1 : n * factorial( n - 1 );
 	}
 
-    public static int pow(int a, int b) {
-        if (b < 0) {
+    public static int pow(int base, int degree) {
+        if (degree < 0) {
             throw new IllegalArgumentException();
         }
-        return b == 0 ? 1: pow(a, b - 1) * a;
+        return degree == 0 ? 1 : multiply(base, pow(base, degree - 1));
     }
+
+    private static int multiply(int base, int indicator) {
+        return (indicator == 0) ? 0 : (indicator < 0 ? -multiply(base, -indicator) : base + multiply(base, indicator - 1));
+    }  
 
     public static int sum(int [] array) {
 		return sum(array, array.length-1);
@@ -30,7 +34,9 @@ public class RecoursionMethods {
 	}
 
     public static int square(int x) {
-		x = Math.abs(x);
+		if (x<0) {
+            x = -x;    
+        }
 		return x == 1 ? 1 : square( x - 1 ) + x + x - 1;
 	}
 
@@ -41,6 +47,8 @@ public class RecoursionMethods {
     private static boolean compareStart(String str, String substr) {
 		return substr.length() == 0 ? true : str.charAt(0) == substr.charAt(0) && compareStart(str.substring(1), substr.substring(1)); 
 	}
+
+
 
 
 }
